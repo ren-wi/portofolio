@@ -20,7 +20,7 @@
     }
 
     section#contact,
-    section#achievements {
+    section#services {
       background-image: -moz-linear-gradient(0deg, #766dff 0%, #88f3ff 100%);
       background-image: -webkit-linear-gradient(0deg, #766dff 0%, #88f3ff 100%);
       background-image: -ms-linear-gradient(0deg, #766dff 0%, #88f3ff 100%);
@@ -107,7 +107,7 @@
         <div class="navbar-nav ms-auto">
           <a class="nav-link active" aria-current="page" href="#home" onclick="active(this)">Home</a>
           <a class="nav-link" href="#about" onclick="active(this)">About</a>
-          <a class="nav-link" href="#achievements" onclick="active(this)">Achievements</a>
+          <a class="nav-link" href="#services" onclick="active(this)">Services</a>
           <a class="nav-link" href="#projects" onclick="active(this)">Projects</a>
           <a class="nav-link" href="#contact" onclick="active(this)">Contact</a>
         </div>
@@ -119,8 +119,8 @@
   <!-- jumbotron -->
   <section id="home" class="jumbotron text-center text-white">
     <img src="assets/img/profiles.jpg" class="rounded-circle img-thumbnail" alt="Rendy" width="150" />
-    <h1 class="display-4">Rendy Wijaya</h1>
-    <p class="lead fw-bold fs-2">Senior Web Programmer</p>
+    <h1 class="display-4"><i>“Hi, I’m Rendy Wijaya a Web Programmer”</i></h1>
+    <p class="lead fw-bold fs-2">“I build scalable business systems with Laravel & React.”</p>
     <p class="caption"><span id="greetings"></span>, how are you today?</p>
     <div>
       <a class="text-white ms-3 fs-3" href="https://www.linkedin.com/in/rendy-wijaya-644b7019a/" target="_blank"><i
@@ -144,20 +144,10 @@
         </div>
       </div>
       <div class="row justify-content-center fs-5 text-center">
-        <div class="col-md-4">
+        <div class="col-md-12">
           <p>
-            I am a fullstack programmer at PT. Square Gate One now. I like to code using PHP and Javascript. I can use
-            MySQL and SQLite database. Coding is a magic, nothing is impossible as long as you try. Hard working and
-            highly
-            motivated programmer.
-          </p>
-        </div>
-        <div class="col-md-4">
-          <p>
-            <i>"Never give up on every situations, maybe just one more point you will achieve your goals."</i>
-            Ecclesiastes 3:11 (KJV) :
-            <i>"He hath made every thing beautiful in his time: also he hath set the world in their heart, so that no
-              man can find out the work that God maketh from the beginning to the end."</i>
+            I’m a web developer with 5+ years of experience in building business systems like payment gateways,
+            invoicing tools, and company websites. My core stack is Laravel, Livewire, Zend, MySQL, and React.
           </p>
         </div>
       </div>
@@ -165,55 +155,26 @@
   </section>
   <!-- end about -->
 
-  <!-- achievements -->
-  <section id="achievements" class="text-white" data-aos="fade-up" data-aos-duration="2000">
+  <!-- services -->
+  <section id="services" class="text-white" data-aos="fade-up" data-aos-duration="2000">
     <div class="container">
       <div class="row text-center mb-3">
         <div class="col">
-          <h2>My Achievements</h2>
+          <h2>Services</h2>
         </div>
       </div>
       <div class="row justify-content-center fs-5 text-start">
-        <div class="col-md-6">
+        <div class="col-md-12">
           <p>Certificates</p>
-          <ul>
-            <li>Sertifikat Kompetensi Pengembangan Perangkat Lunak</li>
-            <li>Use Alibaba Cloud Anti-DDoS Service To Defend DoS Attack</li>
-            <li>Protect Your Web Application on Alibaba Cloud</li>
-            <li>Best Practice to Protect Your Servers on Alibaba Cloud</li>
-            <li>Cloud Practitioner Essentials (Belajar Dasar AWS Cloud)</li>
-            <li>Belajar Membuat Aplikasi Back-End untuk Pemula</li>
-            <li>Belajar Dasar Pemrograman Javascript</li>
-            <li>Redaktur Tata Letak</li>
-            <li>Seminar Nasional Perkoperasian "Start-Up, Digital Economic, And Cooperative on Digitalization Era In
-              Indonesia"</li>
-          </ul>
-        </div>
-        <div class="col-md-6">
-          <p>Experiences</p>
-          <p><i class="bi bi-laptop"></i> Work at PT. Square Gate One as Programmer (2020 - Now)</p>
-          <ul>
-            <li>Develop Centralized Catalog.</li>
-            <li>Maintain Kasir.id</li>
-            <li>Maintain Tagih.id</li>
-          </ul>
-          <p><i class="bi bi-laptop"></i> Freelance as Web Programmer (2019 - 2020)</p>
-          <ul>
-            <li>Coded web-based information system projects</li>
-            <li>Coded android projects with Android Studio</li>
-            <li>Coded web-based GIS</li>
-          </ul>
-          <p><i class="bi bi-laptop"></i> Intern at BPOM as Web Programmer (2018)</p>
-          <ul>
-            <li>Designed UI for deployment</li>
-            <li>Learned about GIS</li>
-            <li>Coded web-based GIS</li>
-          </ul>
+          ✅ Custom Web Development (Laravel, Livewire, Zend)<br />
+          ✅ API Integration (Payment, Shipping, etc.)<br />
+          ✅ Admin Dashboard & Reporting<br />
+          ✅ Website Optimization & Maintenance<br />
         </div>
       </div>
     </div>
   </section>
-  <!-- end achievements -->
+  <!-- end services -->
 
   <!-- projects -->
   <section id="projects" data-aos="fade-up" data-aos-duration="2000">
@@ -277,7 +238,7 @@
         <div class="col-md-8">
           <form>
             <div class="mb-3">
-              <label for="name" class="form-label">Nama Lengkap</label>
+              <label for="name" class="form-label">Full Name</label>
               <input type="text" class="form-control" id="name" aria-describedby="name" />
             </div>
             <div class="mb-3">
@@ -285,7 +246,7 @@
               <input type="email" class="form-control" id="email" aria-describedby="email" />
             </div>
             <div class="mb-3">
-              <label for="message" class="form-label">Pesan</label>
+              <label for="message" class="form-label">Message</label>
               <textarea class="form-control" id="message" rows="3"></textarea>
             </div>
             <button type="button" class="btn btn-primary" onclick="sendMail()">Send</button>
@@ -294,12 +255,13 @@
       </div>
     </div>
   </section>
+  <br />
   <!-- end contact -->
 
   <!-- footer  -->
   <footer class="text-center bg-primary text-white pb-3 pt-3">
     <p>
-      Copyright ©2021 All rights reserved | Created with <i class="bi bi-heart-fill text-danger"></i> by
+      Copyright ©2025 All rights reserved | Created with <i class="bi bi-heart-fill text-danger"></i> by
       <a class="text-white" href="https://www.linkedin.com/in/rendy-wijaya-644b7019a/" target="_blank"
         style="text-decoration: none">Rendy Wijaya</a>
     </p>
