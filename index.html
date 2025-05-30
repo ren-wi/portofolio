@@ -1,417 +1,444 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-    <style>
-      .jumbotron {
-        padding-top: 6rem;
-        background-image: -moz-linear-gradient(0deg, #766dff 0%, #88f3ff 100%);
-        background-image: -webkit-linear-gradient(0deg, #766dff 0%, #88f3ff 100%);
-        background-image: -ms-linear-gradient(0deg, #766dff 0%, #88f3ff 100%);
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <style>
+    .jumbotron {
+      padding-top: 6rem;
+      background-image: -moz-linear-gradient(0deg, #766dff 0%, #88f3ff 100%);
+      background-image: -webkit-linear-gradient(0deg, #766dff 0%, #88f3ff 100%);
+      background-image: -ms-linear-gradient(0deg, #766dff 0%, #88f3ff 100%);
+    }
+
+    section#contact,
+    section#achievements {
+      background-image: -moz-linear-gradient(0deg, #766dff 0%, #88f3ff 100%);
+      background-image: -webkit-linear-gradient(0deg, #766dff 0%, #88f3ff 100%);
+      background-image: -ms-linear-gradient(0deg, #766dff 0%, #88f3ff 100%);
+    }
+
+    section {
+      padding-top: 5rem;
+      padding-bottom: 5rem;
+    }
+
+    #projects img:hover {
+      cursor: pointer;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      padding-left: 1.3em;
+    }
+
+    li:before {
+      content: "\f26e";
+      font-family: bootstrap-icons;
+      display: inline-block;
+      margin-left: -1.3em;
+      width: 1.3em;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
       }
-      section#contact,
-      section#achievements {
-        background-image: -moz-linear-gradient(0deg, #766dff 0%, #88f3ff 100%);
-        background-image: -webkit-linear-gradient(0deg, #766dff 0%, #88f3ff 100%);
-        background-image: -ms-linear-gradient(0deg, #766dff 0%, #88f3ff 100%);
+
+      100% {
+        transform: rotate(360deg);
       }
-      section {
-        padding-top: 5rem;
-        padding-bottom: 5rem;
-      }
-      #projects img:hover {
-        cursor: pointer;
-      }
-      ul {
-        list-style: none;
-        padding: 0;
-      }
-      li {
-        padding-left: 1.3em;
-      }
-      li:before {
-        content: "\f26e";
-        font-family: bootstrap-icons;
-        display: inline-block;
-        margin-left: -1.3em;
-        width: 1.3em;
-      }
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-      .loader {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        margin: auto;
-        border: 16px solid #f3f3f3;
-        border-top: 16px solid blue;
-        border-radius: 50%;
-        width: 120px;
-        height: 120px;
-        animation: spin 2s linear infinite;
-      }
-      #overlay {
-        height: 100%;
-        width: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        position: fixed;
-        left: 0;
-        top: 0;
-        z-index: 99999;
-      }
-    </style>
-    <title>Rendy Wijaya</title>
-  </head>
-  <body>
-    <div id="overlay" style="display: none">
-      <div class="loader"></div>
+    }
+
+    .loader {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      border: 16px solid #f3f3f3;
+      border-top: 16px solid blue;
+      border-radius: 50%;
+      width: 120px;
+      height: 120px;
+      animation: spin 2s linear infinite;
+    }
+
+    #overlay {
+      height: 100%;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 99999;
+    }
+  </style>
+  <title>Rendy Wijaya</title>
+</head>
+
+<body>
+  <div id="overlay" style="display: none">
+    <div class="loader"></div>
+  </div>
+
+  <!-- navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Rendy Wijaya</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav ms-auto">
+          <a class="nav-link active" aria-current="page" href="#home" onclick="active(this)">Home</a>
+          <a class="nav-link" href="#about" onclick="active(this)">About</a>
+          <a class="nav-link" href="#achievements" onclick="active(this)">Achievements</a>
+          <a class="nav-link" href="#projects" onclick="active(this)">Projects</a>
+          <a class="nav-link" href="#contact" onclick="active(this)">Contact</a>
+        </div>
+      </div>
     </div>
+  </nav>
+  <!-- end navbar -->
 
-    <!-- navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="#">Rendy Wijaya</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav ms-auto">
-            <a class="nav-link active" aria-current="page" href="#home" onclick="active(this)">Home</a>
-            <a class="nav-link" href="#about" onclick="active(this)">About</a>
-            <a class="nav-link" href="#achievements" onclick="active(this)">Achievements</a>
-            <a class="nav-link" href="#projects" onclick="active(this)">Projects</a>
-            <a class="nav-link" href="#contact" onclick="active(this)">Contact</a>
-          </div>
+  <!-- jumbotron -->
+  <section id="home" class="jumbotron text-center text-white">
+    <img src="assets/img/profiles.jpg" class="rounded-circle img-thumbnail" alt="Rendy" width="150" />
+    <h1 class="display-4">Rendy Wijaya</h1>
+    <p class="lead fw-bold fs-2">Senior Web Programmer</p>
+    <p class="caption"><span id="greetings"></span>, how are you today?</p>
+    <div>
+      <a class="text-white ms-3 fs-3" href="https://www.linkedin.com/in/rendy-wijaya-644b7019a/" target="_blank"><i
+          class="bi bi-linkedin"></i></a>
+      <a class="text-white ms-3 fs-3" href="mailto:rendywijaya374@gmail.com" target="_blank"><i
+          class="bi bi-envelope"></i></a>
+      <a class="text-white ms-3 fs-3" href="https://www.instagram.com/rendy_wijaya18/" target="_blank"><i
+          class="bi bi-instagram"></i></a>
+      <a class="text-white ms-3 fs-3" href="https://www.facebook.com/rendy.wijayaNjs3578369/" target="_blank"><i
+          class="bi bi-facebook"></i></a>
+    </div>
+  </section>
+  <!-- end jumbotron -->
+
+  <!-- about -->
+  <section id="about" data-aos="fade-up" data-aos-duration="2000">
+    <div class="container">
+      <div class="row text-center mb-3">
+        <div class="col">
+          <h2>About Me</h2>
         </div>
       </div>
-    </nav>
-    <!-- end navbar -->
-
-    <!-- jumbotron -->
-    <section id="home" class="jumbotron text-center text-white">
-      <img src="assets/img/profiles.jpg" class="rounded-circle img-thumbnail" alt="Rendy" width="150" />
-      <h1 class="display-4">Rendy Wijaya</h1>
-      <p class="lead fw-bold fs-2">Web Programmer</p>
-      <p class="caption"><span id="greetings"></span>, how are you today?</p>
-      <div>
-        <a class="text-white ms-3 fs-3" href="https://www.linkedin.com/in/rendy-wijaya-644b7019a/" target="_blank"><i class="bi bi-linkedin"></i></a>
-        <a class="text-white ms-3 fs-3" href="mailto:rendywijaya374@gmail.com" target="_blank"><i class="bi bi-envelope"></i></a>
-        <a class="text-white ms-3 fs-3" href="https://www.instagram.com/rendy_wijaya18/" target="_blank"><i class="bi bi-instagram"></i></a>
-        <a class="text-white ms-3 fs-3" href="https://www.facebook.com/rendy.wijayaNjs3578369/" target="_blank"><i class="bi bi-facebook"></i></a>
-      </div>
-    </section>
-    <!-- end jumbotron -->
-
-    <!-- about -->
-    <section id="about" data-aos="fade-up" data-aos-duration="2000">
-      <div class="container">
-        <div class="row text-center mb-3">
-          <div class="col"><h2>About Me</h2></div>
+      <div class="row justify-content-center fs-5 text-center">
+        <div class="col-md-4">
+          <p>
+            I am a fullstack programmer at PT. Square Gate One now. I like to code using PHP and Javascript. I can use
+            MySQL and SQLite database. Coding is a magic, nothing is impossible as long as you try. Hard working and
+            highly
+            motivated programmer.
+          </p>
         </div>
-        <div class="row justify-content-center fs-5 text-center">
-          <div class="col-md-4">
-            <p>
-              I am a fullstack programmer at PT. Square Gate One now. I like to code using PHP and Javascript. I can use MySQL and SQLite database. Coding is a magic, nothing is impossible as long as you try. Hard working and highly
-              motivated programmer.
-            </p>
-          </div>
-          <div class="col-md-4">
-            <p>
-              <i>"Never give up on every situations, maybe just one more point you will achieve your goals."</i> Ecclesiastes 3:11 (KJV) :
-              <i>"He hath made every thing beautiful in his time: also he hath set the world in their heart, so that no man can find out the work that God maketh from the beginning to the end."</i>
-            </p>
-          </div>
+        <div class="col-md-4">
+          <p>
+            <i>"Never give up on every situations, maybe just one more point you will achieve your goals."</i>
+            Ecclesiastes 3:11 (KJV) :
+            <i>"He hath made every thing beautiful in his time: also he hath set the world in their heart, so that no
+              man can find out the work that God maketh from the beginning to the end."</i>
+          </p>
         </div>
       </div>
-    </section>
-    <!-- end about -->
+    </div>
+  </section>
+  <!-- end about -->
 
-    <!-- achievements -->
-    <section id="achievements" class="text-white" data-aos="fade-up" data-aos-duration="2000">
-      <div class="container">
-        <div class="row text-center mb-3">
-          <div class="col"><h2>My Achievements</h2></div>
-        </div>
-        <div class="row justify-content-center fs-5 text-start">
-          <div class="col-md-6">
-            <p>Certificates</p>
-            <ul>
-              <li>Sertifikat Kompetensi Pengembangan Perangkat Lunak</li>
-              <li>Use Alibaba Cloud Anti-DDoS Service To Defend DoS Attack</li>
-              <li>Protect Your Web Application on Alibaba Cloud</li>
-              <li>Best Practice to Protect Your Servers on Alibaba Cloud</li>
-              <li>Cloud Practitioner Essentials (Belajar Dasar AWS Cloud)</li>
-              <li>Belajar Membuat Aplikasi Back-End untuk Pemula</li>
-              <li>Belajar Dasar Pemrograman Javascript</li>
-              <li>Redaktur Tata Letak</li>
-              <li>Seminar Nasional Perkoperasian "Start-Up, Digital Economic, And Cooperative on Digitalization Era In Indonesia"</li>
-            </ul>
-          </div>
-          <div class="col-md-6">
-            <p>Experiences</p>
-            <p><i class="bi bi-laptop"></i> Work at PT. Square Gate One as Programmer (2020 - Now)</p>
-            <ul>
-              <li>Develop Centralized Catalog.</li>
-              <li>Maintain Kasir.id</li>
-              <li>Maintain Tagih.id</li>
-            </ul>
-            <p><i class="bi bi-laptop"></i> Freelance as Web Programmer (2019 - 2020)</p>
-            <ul>
-              <li>Coded web-based information system projects</li>
-              <li>Coded android projects with Android Studio</li>
-              <li>Coded web-based GIS</li>
-            </ul>
-            <p><i class="bi bi-laptop"></i> Intern at BPOM as Web Programmer (2018)</p>
-            <ul>
-              <li>Designed UI for deployment</li>
-              <li>Learned about GIS</li>
-              <li>Coded web-based GIS</li>
-            </ul>
-          </div>
+  <!-- achievements -->
+  <section id="achievements" class="text-white" data-aos="fade-up" data-aos-duration="2000">
+    <div class="container">
+      <div class="row text-center mb-3">
+        <div class="col">
+          <h2>My Achievements</h2>
         </div>
       </div>
-    </section>
-    <!-- end achievements -->
-
-    <!-- projects -->
-    <section id="projects" data-aos="fade-up" data-aos-duration="2000">
-      <div class="container">
-        <div class="row text-center mb-3">
-          <div class="col"><h2>My Projects</h2></div>
+      <div class="row justify-content-center fs-5 text-start">
+        <div class="col-md-6">
+          <p>Certificates</p>
+          <ul>
+            <li>Sertifikat Kompetensi Pengembangan Perangkat Lunak</li>
+            <li>Use Alibaba Cloud Anti-DDoS Service To Defend DoS Attack</li>
+            <li>Protect Your Web Application on Alibaba Cloud</li>
+            <li>Best Practice to Protect Your Servers on Alibaba Cloud</li>
+            <li>Cloud Practitioner Essentials (Belajar Dasar AWS Cloud)</li>
+            <li>Belajar Membuat Aplikasi Back-End untuk Pemula</li>
+            <li>Belajar Dasar Pemrograman Javascript</li>
+            <li>Redaktur Tata Letak</li>
+            <li>Seminar Nasional Perkoperasian "Start-Up, Digital Economic, And Cooperative on Digitalization Era In
+              Indonesia"</li>
+          </ul>
         </div>
-        <div class="row text-center justify-content-center">
-          <div class="col-md-4 mb-3">
-            <div class="card">
-              <!-- Button trigger modal -->
-              <img
-                src="assets/projects/siput/home.png"
-                class="card-img-top"
-                alt="SIPUT"
-                data-bs-toggle="modal"
-                data-bs-target="#imageModal"
-                data-bs-url="assets/projects/siput/home.png"
-                data-bs-title="Sistem Informasi Penilaian Kesehatan Hutan"
-              />
-              <div class="card-body">
-                <p class="card-title">SIPUT</p>
-                <p class="card-text">This is a program to compute forest health value manually based on Forest Health Monitoring (FHM) method.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 mb-3">
-            <div class="card">
-              <img src="assets/projects/sipelanal/home.png" class="card-img-top" alt="SIPELANAL" data-bs-toggle="modal" data-bs-target="#imageModal" data-bs-url="assets/projects/sipelanal/home.png" data-bs-title="SIPELANAL" />
-              <div class="card-body">
-                <p class="card-title">SIPELANAL</p>
-                <p class="card-text">This is a program to evaluate the drugs and foods tests, then the admin can print out the results in the paper.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 mb-3">
-            <div class="card">
-              <img
-                src="assets/projects/sipsom/riwayat.png"
-                class="card-img-top"
-                alt="SIPSOM"
-                data-bs-toggle="modal"
-                data-bs-target="#imageModal"
-                data-bs-url="assets/projects/sipsom/riwayat.png"
-                data-bs-title="Sistem Informasi Pemantauan Sarana Obat dan Makanan"
-              />
-              <div class="card-body">
-                <p class="card-title">SIPSOM</p>
-                <p class="card-text">This is a program to investigate foods and drugs in Bandar Lampung. This system can mark the visited location by employees.</p>
-              </div>
+        <div class="col-md-6">
+          <p>Experiences</p>
+          <p><i class="bi bi-laptop"></i> Work at PT. Square Gate One as Programmer (2020 - Now)</p>
+          <ul>
+            <li>Develop Centralized Catalog.</li>
+            <li>Maintain Kasir.id</li>
+            <li>Maintain Tagih.id</li>
+          </ul>
+          <p><i class="bi bi-laptop"></i> Freelance as Web Programmer (2019 - 2020)</p>
+          <ul>
+            <li>Coded web-based information system projects</li>
+            <li>Coded android projects with Android Studio</li>
+            <li>Coded web-based GIS</li>
+          </ul>
+          <p><i class="bi bi-laptop"></i> Intern at BPOM as Web Programmer (2018)</p>
+          <ul>
+            <li>Designed UI for deployment</li>
+            <li>Learned about GIS</li>
+            <li>Coded web-based GIS</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end achievements -->
+
+  <!-- projects -->
+  <section id="projects" data-aos="fade-up" data-aos-duration="2000">
+    <div class="container">
+      <div class="row text-center mb-3">
+        <div class="col">
+          <h2>My Projects</h2>
+        </div>
+      </div>
+      <div class="row text-center justify-content-center">
+        <div class="col-md-4 mb-3">
+          <div class="card">
+            <!-- Button trigger modal -->
+            <img src="assets/projects/siput/home.png" class="card-img-top" alt="SIPUT" data-bs-toggle="modal"
+              data-bs-target="#imageModal" data-bs-url="assets/projects/siput/home.png"
+              data-bs-title="Sistem Informasi Penilaian Kesehatan Hutan" />
+            <div class="card-body">
+              <p class="card-title">SIPUT</p>
+              <p class="card-text">This is a program to compute forest health value manually based on Forest Health
+                Monitoring (FHM) method.</p>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-    <!-- end projects -->
-
-    <!-- contact -->
-    <section id="contact" class="text-white" data-aos="fade-up" data-aos-duration="2000">
-      <div class="container">
-        <div class="row text-center mb-3">
-          <div class="col"><h2>Contact Me</h2></div>
-        </div>
-        <div class="row justify-content-center">
-          <div class="col-md-8">
-            <form>
-              <div class="mb-3">
-                <label for="name" class="form-label">Nama Lengkap</label>
-                <input type="text" class="form-control" id="name" aria-describedby="name" />
-              </div>
-              <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" aria-describedby="email" />
-              </div>
-              <div class="mb-3">
-                <label for="message" class="form-label">Pesan</label>
-                <textarea class="form-control" id="message" rows="3"></textarea>
-              </div>
-              <button type="button" class="btn btn-primary" onclick="sendMail()">Send</button>
-            </form>
+        <div class="col-md-4 mb-3">
+          <div class="card">
+            <img src="assets/projects/sipelanal/home.png" class="card-img-top" alt="SIPELANAL" data-bs-toggle="modal"
+              data-bs-target="#imageModal" data-bs-url="assets/projects/sipelanal/home.png" data-bs-title="SIPELANAL" />
+            <div class="card-body">
+              <p class="card-title">SIPELANAL</p>
+              <p class="card-text">This is a program to evaluate the drugs and foods tests, then the admin can print out
+                the results in the paper.</p>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
-    <!-- end contact -->
-
-    <!-- footer  -->
-    <footer class="text-center bg-primary text-white pb-3 pt-3">
-      <p>
-        Copyright ©2021 All rights reserved | Created with <i class="bi bi-heart-fill text-danger"></i> by
-        <a class="text-white" href="https://www.linkedin.com/in/rendy-wijaya-644b7019a/" target="_blank" style="text-decoration: none">Rendy Wijaya</a>
-      </p>
-    </footer>
-    <!-- end footer -->
-
-    <!-- Modal -->
-    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-fullscreen">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="imageModalLabel">Modal title</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body text-center">
-            <img src="" alt="..." width="100%" />
+        <div class="col-md-4 mb-3">
+          <div class="card">
+            <img src="assets/projects/sipsom/riwayat.png" class="card-img-top" alt="SIPSOM" data-bs-toggle="modal"
+              data-bs-target="#imageModal" data-bs-url="assets/projects/sipsom/riwayat.png"
+              data-bs-title="Sistem Informasi Pemantauan Sarana Obat dan Makanan" />
+            <div class="card-body">
+              <p class="card-title">SIPSOM</p>
+              <p class="card-text">This is a program to investigate foods and drugs in Bandar Lampung. This system can
+                mark the visited location by employees.</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="assets/vendor/sweetalert/dist/sweetalert.min.js"></script>
-    <script>
-      AOS.init();
-      function active(e) {
-        var a = document.querySelectorAll(".nav-link");
-        for (var i = 0; i < a.length; i++) {
-          a[i].classList.remove("active");
-        }
-        e.classList.add("active");
+  </section>
+  <!-- end projects -->
+
+  <!-- contact -->
+  <section id="contact" class="text-white" data-aos="fade-up" data-aos-duration="2000">
+    <div class="container">
+      <div class="row text-center mb-3">
+        <div class="col">
+          <h2>Contact Me</h2>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <form>
+            <div class="mb-3">
+              <label for="name" class="form-label">Nama Lengkap</label>
+              <input type="text" class="form-control" id="name" aria-describedby="name" />
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" aria-describedby="email" />
+            </div>
+            <div class="mb-3">
+              <label for="message" class="form-label">Pesan</label>
+              <textarea class="form-control" id="message" rows="3"></textarea>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="sendMail()">Send</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end contact -->
+
+  <!-- footer  -->
+  <footer class="text-center bg-primary text-white pb-3 pt-3">
+    <p>
+      Copyright ©2021 All rights reserved | Created with <i class="bi bi-heart-fill text-danger"></i> by
+      <a class="text-white" href="https://www.linkedin.com/in/rendy-wijaya-644b7019a/" target="_blank"
+        style="text-decoration: none">Rendy Wijaya</a>
+    </p>
+  </footer>
+  <!-- end footer -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="imageModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
+          <img src="" alt="..." width="100%" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="assets/vendor/sweetalert/dist/sweetalert.min.js"></script>
+  <script>
+    AOS.init();
+    function active(e) {
+      var a = document.querySelectorAll(".nav-link");
+      for (var i = 0; i < a.length; i++) {
+        a[i].classList.remove("active");
       }
+      e.classList.add("active");
+    }
 
-      var imageModal = document.getElementById("imageModal");
-      imageModal.addEventListener("show.bs.modal", function (event) {
-        // Button that triggered the modal
-        var button = event.relatedTarget;
-        // Extract info from data-bs-* attributes
-        var url = button.getAttribute("data-bs-url");
-        var title = button.getAttribute("data-bs-title");
-        // If necessary, you could initiate an AJAX request here
-        // and then do the updating in a callback.
-        //
-        // Update the modal's content.
-        var modalTitle = imageModal.querySelector(".modal-title");
-        var modalBodyInput = imageModal.querySelector(".modal-body img");
+    var imageModal = document.getElementById("imageModal");
+    imageModal.addEventListener("show.bs.modal", function (event) {
+      // Button that triggered the modal
+      var button = event.relatedTarget;
+      // Extract info from data-bs-* attributes
+      var url = button.getAttribute("data-bs-url");
+      var title = button.getAttribute("data-bs-title");
+      // If necessary, you could initiate an AJAX request here
+      // and then do the updating in a callback.
+      //
+      // Update the modal's content.
+      var modalTitle = imageModal.querySelector(".modal-title");
+      var modalBodyInput = imageModal.querySelector(".modal-body img");
 
-        modalTitle.textContent = title;
-        modalBodyInput.src = url;
-        modalBodyInput.alt = title;
+      modalTitle.textContent = title;
+      modalBodyInput.src = url;
+      modalBodyInput.alt = title;
+    });
+
+    const sections = document.querySelectorAll("section[id]");
+    const body = document.querySelector("body");
+
+    // Add an event listener listening for scroll
+    window.addEventListener("scroll", navHighlighter);
+
+    function navHighlighter() {
+      let scrollY = window.pageYOffset;
+
+      sections.forEach((current) => {
+        const sectionHeight = current.offsetHeight;
+        const sectionTop = current.offsetTop - 50;
+        sectionId = current.getAttribute("id");
+
+        if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+          document.querySelector(".nav-link[href*=" + sectionId + "]").classList.add("active");
+        } else {
+          document.querySelector(".nav-link[href*=" + sectionId + "]").classList.remove("active");
+        }
       });
+    }
+    let date = new Date();
+    let time = date.getHours();
+    let greet;
+    if (time > 4) {
+      greet = "Good Morning";
+    }
+    if (time > 10) {
+      greet = "Good Afternoon";
+    }
+    if (time > 15) {
+      greet = "Good Evening";
+    }
+    if (time > 18) {
+      greet = "Good Night";
+    }
+    document.querySelector("#greetings").textContent = greet;
 
-      const sections = document.querySelectorAll("section[id]");
-      const body = document.querySelector("body");
+    function sendMail() {
+      const loader = document.getElementById("overlay");
+      loader.style.display = "block";
+      const formData = new FormData();
+      const name = document.querySelector("#name").value;
+      const email = document.querySelector("#email").value;
+      const message = document.querySelector("#message").value;
 
-      // Add an event listener listening for scroll
-      window.addEventListener("scroll", navHighlighter);
+      formData.append("name", name);
+      formData.append("email", email);
+      formData.append("subject", "Contact");
+      formData.append("message", message);
 
-      function navHighlighter() {
-        let scrollY = window.pageYOffset;
-
-        sections.forEach((current) => {
-          const sectionHeight = current.offsetHeight;
-          const sectionTop = current.offsetTop - 50;
-          sectionId = current.getAttribute("id");
-
-          if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-            document.querySelector(".nav-link[href*=" + sectionId + "]").classList.add("active");
+      fetch("https://indococo.herokuapp.com/send_mail.php", {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((result) => {
+          if (result.data[0].message_code == 200) {
+            document.getElementById("name").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("message").value = "";
+            swal({
+              title: "Success",
+              text: result.data[0].message,
+              icon: "success",
+            });
           } else {
-            document.querySelector(".nav-link[href*=" + sectionId + "]").classList.remove("active");
-          }
-        });
-      }
-      let date = new Date();
-      let time = date.getHours();
-      let greet;
-      if (time > 4) {
-        greet = "Good Morning";
-      }
-      if (time > 10) {
-        greet = "Good Afternoon";
-      }
-      if (time > 15) {
-        greet = "Good Evening";
-      }
-      if (time > 18) {
-        greet = "Good Night";
-      }
-      document.querySelector("#greetings").textContent = greet;
-
-      function sendMail() {
-        const loader = document.getElementById("overlay");
-        loader.style.display = "block";
-        const formData = new FormData();
-        const name = document.querySelector("#name").value;
-        const email = document.querySelector("#email").value;
-        const message = document.querySelector("#message").value;
-
-        formData.append("name", name);
-        formData.append("email", email);
-        formData.append("subject", "Contact");
-        formData.append("message", message);
-
-        fetch("https://indococo.herokuapp.com/send_mail.php", {
-          method: "POST",
-          body: formData,
-        })
-          .then((response) => response.json())
-          .then((result) => {
-            if (result.data[0].message_code == 200) {
-              document.getElementById("name").value = "";
-              document.getElementById("email").value = "";
-              document.getElementById("message").value = "";
-              swal({
-                title: "Success",
-                text: result.data[0].message,
-                icon: "success",
-              });
-            } else {
-              swal({
-                title: "Error",
-                text: result.data[0].message,
-                icon: "error",
-              });
-            }
-            loader.style.display = "none";
-          })
-          .catch((error) => {
             swal({
               title: "Error",
-              text: "Internal Server Error",
+              text: result.data[0].message,
               icon: "error",
             });
-            loader.style.display = "none";
+          }
+          loader.style.display = "none";
+        })
+        .catch((error) => {
+          swal({
+            title: "Error",
+            text: "Internal Server Error",
+            icon: "error",
           });
-      }
-    </script>
-  </body>
+          loader.style.display = "none";
+        });
+    }
+  </script>
+</body>
+
 </html>
