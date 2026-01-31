@@ -1,405 +1,952 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rendy Wijaya</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
   <style>
-    .jumbotron {
-      padding-top: 6rem;
-      background-image: -moz-linear-gradient(0deg, #766dff 0%, #88f3ff 100%);
-      background-image: -webkit-linear-gradient(0deg, #766dff 0%, #88f3ff 100%);
-      background-image: -ms-linear-gradient(0deg, #766dff 0%, #88f3ff 100%);
+    body {
+      box-sizing: border-box;
     }
-
-    section#contact,
-    section#services {
-      background-image: -moz-linear-gradient(0deg, #766dff 0%, #88f3ff 100%);
-      background-image: -webkit-linear-gradient(0deg, #766dff 0%, #88f3ff 100%);
-      background-image: -ms-linear-gradient(0deg, #766dff 0%, #88f3ff 100%);
+    
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: #10b981 #0a0a0a;
     }
-
-    section {
-      padding-top: 5rem;
-      padding-bottom: 5rem;
+    
+    .font-mono-code {
+      font-family: 'JetBrains Mono', monospace;
     }
-
-    #projects img:hover {
-      cursor: pointer;
+    
+    .font-inter {
+      font-family: 'Inter', sans-serif;
     }
-
-    ul {
-      list-style: none;
-      padding: 0;
+    
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(16, 185, 129, 0.3); }
+      50% { box-shadow: 0 0 40px rgba(16, 185, 129, 0.6); }
     }
-
-    li {
-      padding-left: 1.3em;
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
     }
-
-    li:before {
-      content: "\f26e";
-      font-family: bootstrap-icons;
-      display: inline-block;
-      margin-left: -1.3em;
-      width: 1.3em;
+    
+    @keyframes data-flow {
+      0% { stroke-dashoffset: 100; opacity: 0; }
+      20% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { stroke-dashoffset: 0; opacity: 0; }
     }
-
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg);
-      }
-
-      100% {
-        transform: rotate(360deg);
-      }
+    
+    @keyframes counter-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-
-    .loader {
+    
+    @keyframes scan-line {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(100%); }
+    }
+    
+    .animate-pulse-glow {
+      animation: pulse-glow 3s ease-in-out infinite;
+    }
+    
+    .animate-float {
+      animation: float 4s ease-in-out infinite;
+    }
+    
+    .data-flow-path {
+      stroke-dasharray: 100;
+      animation: data-flow 2s ease-in-out infinite;
+    }
+    
+    .animate-counter {
+      animation: counter-up 0.8s ease-out forwards;
+    }
+    
+    .bento-card {
+      background: linear-gradient(135deg, rgba(20, 20, 20, 0.9) 0%, rgba(10, 10, 10, 0.95) 100%);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .bento-card:hover {
+      border-color: rgba(16, 185, 129, 0.6);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(16, 185, 129, 0.1);
+    }
+    
+    .node-active {
+      filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.8));
+    }
+    
+    .timeline-dot {
+      position: relative;
+    }
+    
+    .timeline-dot::before {
+      content: '';
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: #10b981;
+      border-radius: 50%;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+    
+    .glass-card {
+      background: rgba(10, 10, 10, 0.8);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .gradient-text {
+      background: linear-gradient(135deg, #10b981 0%, #34d399 50%, #6ee7b7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .scan-effect {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .scan-effect::after {
+      content: '';
       position: absolute;
       top: 0;
-      bottom: 0;
       left: 0;
       right: 0;
-      margin: auto;
-      border: 16px solid #f3f3f3;
-      border-top: 16px solid blue;
-      border-radius: 50%;
-      width: 120px;
-      height: 120px;
-      animation: spin 2s linear infinite;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #10b981, transparent);
+      animation: scan-line 3s ease-in-out infinite;
     }
-
-    #overlay {
-      height: 100%;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      position: fixed;
+    
+    .metric-ring {
+      stroke-dasharray: 283;
+      stroke-dashoffset: 283;
+      transition: stroke-dashoffset 1.5s ease-out;
+    }
+    
+    .metric-ring.animate {
+      stroke-dashoffset: 28;
+    }
+    
+    .nav-link {
+      position: relative;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
       left: 0;
-      top: 0;
-      z-index: 99999;
+      width: 0;
+      height: 2px;
+      background: #10b981;
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    .recon-row {
+      transition: all 0.3s ease;
+    }
+    
+    .recon-row.matched {
+      background: rgba(16, 185, 129, 0.1);
+      border-left: 3px solid #10b981;
+    }
+    
+    .recon-row.processing {
+      background: rgba(234, 179, 8, 0.1);
+      border-left: 3px solid #eab308;
     }
   </style>
-  <title>Rendy Wijaya</title>
-</head>
-
-<body>
-  <div id="overlay" style="display: none">
-    <div class="loader"></div>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full font-inter bg-[#0a0a0a] text-gray-100">
+  <div id="app" class="h-full overflow-auto"><!-- Navigation -->
+   <nav class="fixed top-0 left-0 right-0 z-50 glass-card">
+    <div class="max-w-7xl mx-auto px-6 py-4">
+     <div class="flex items-center justify-between">
+      <div class="flex items-center gap-3">
+       <div class="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center animate-pulse-glow"><span class="text-emerald-400 font-mono-code font-bold text-lg">&lt;/&gt;</span>
+       </div><span class="font-mono-code text-emerald-400 font-semibold">Rendy Wijaya</span>
+      </div>
+      <div class="hidden md:flex items-center gap-8"><a href="#expertise" class="nav-link text-gray-400 hover:text-emerald-400 transition-colors text-sm font-medium">Expertise</a> <a href="#experience" class="nav-link text-gray-400 hover:text-emerald-400 transition-colors text-sm font-medium">Experience</a> <a href="#projects" class="nav-link text-gray-400 hover:text-emerald-400 transition-colors text-sm font-medium">Projects</a> <a href="#metrics" class="nav-link text-gray-400 hover:text-emerald-400 transition-colors text-sm font-medium">Metrics</a> <a href="#contact" class="px-4 py-2 bg-emerald-500/20 border border-emerald-500/50 rounded-lg text-emerald-400 hover:bg-emerald-500/30 transition-all text-sm font-medium">Contact</a>
+      </div>
+     </div>
+    </div>
+   </nav><!-- Hero Section -->
+   <section class="min-h-screen flex items-center relative overflow-hidden pt-20"><!-- Background Grid -->
+    <div class="absolute inset-0 opacity-20">
+     <svg class="w-full h-full"><defs>
+       <pattern id="grid" width="40" height="40" patternunits="userSpaceOnUse">
+        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#10b981" stroke-width="0.5" />
+       </pattern>
+      </defs> <rect width="100%" height="100%" fill="url(#grid)" />
+     </svg>
+    </div>
+    <div class="max-w-7xl mx-auto px-6 py-20 relative z-10">
+     <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div>
+       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 mb-6">
+        <div class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div><span class="text-emerald-400 text-sm font-mono-code">Available for opportunities</span>
+       </div>
+       <h1 id="hero-title" class="text-4xl md:text-6xl font-bold mb-6 leading-tight">Building <span class="gradient-text">Scalable</span> Systems with <span class="gradient-text">Financial Precision</span></h1>
+       <p id="hero-subtitle" class="text-xl text-gray-400 mb-8 leading-relaxed">Senior Backend Engineer specializing in high-scale payment gateways, microservices architecture, and systems that process millions of transactions daily.</p>
+       <div class="flex flex-wrap gap-4"><a href="#projects" class="px-6 py-3 bg-emerald-500 hover:bg-emerald-400 text-black font-semibold rounded-lg transition-all hover:shadow-lg hover:shadow-emerald-500/25"> View Architecture → </a> <a href="#contact" class="px-6 py-3 border border-gray-700 hover:border-emerald-500/50 rounded-lg transition-all hover:bg-emerald-500/5"> Let's Talk </a>
+       </div><!-- Quick Stats -->
+       <div class="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-gray-800">
+        <div>
+         <div class="text-3xl font-bold text-emerald-400 font-mono-code">
+          7+
+         </div>
+         <div class="text-sm text-gray-500">
+          Years Experience
+         </div>
+        </div>
+        <div>
+         <div class="text-3xl font-bold text-emerald-400 font-mono-code">
+          1M+
+         </div>
+         <div class="text-sm text-gray-500">
+          Daily Transactions
+         </div>
+        </div>
+        <div>
+         <div class="text-3xl font-bold text-emerald-400 font-mono-code">
+          99.9%
+         </div>
+         <div class="text-sm text-gray-500">
+          System Uptime
+         </div>
+        </div>
+       </div>
+      </div><!-- Interactive Microservices Diagram -->
+      <div class="relative">
+       <div id="microservices-diagram" class="relative w-full aspect-square max-w-lg mx-auto">
+        <svg viewbox="0 0 400 400" class="w-full h-full"><!-- Connection Lines --> <g class="connections">
+          <path class="data-flow-path" d="M200,80 L200,160" stroke="#10b981" stroke-width="2" fill="none" style="animation-delay: 0s" />
+          <path class="data-flow-path" d="M200,240 L200,320" stroke="#10b981" stroke-width="2" fill="none" style="animation-delay: 0.3s" />
+          <path class="data-flow-path" d="M120,200 L80,200" stroke="#10b981" stroke-width="2" fill="none" style="animation-delay: 0.6s" />
+          <path class="data-flow-path" d="M280,200 L320,200" stroke="#10b981" stroke-width="2" fill="none" style="animation-delay: 0.9s" />
+          <path class="data-flow-path" d="M160,160 L80,100" stroke="#10b981" stroke-width="2" fill="none" style="animation-delay: 1.2s" />
+          <path class="data-flow-path" d="M240,160 L320,100" stroke="#10b981" stroke-width="2" fill="none" style="animation-delay: 1.5s" />
+         </g> <!-- Service Nodes --> <!-- API Gateway --> <g class="node cursor-pointer" data-service="api-gateway" onclick="highlightService('api-gateway')">
+          <rect x="150" y="40" width="100" height="40" rx="8" fill="#141414" stroke="#10b981" stroke-width="2" />
+          <text x="200" y="65" text-anchor="middle" fill="#10b981" font-size="12" font-family="JetBrains Mono">
+           API Gateway
+          </text>
+         </g> <!-- Main Service --> <g class="node cursor-pointer" data-service="payment-core" onclick="highlightService('payment-core')">
+          <rect x="140" y="160" width="120" height="80" rx="8" fill="#141414" stroke="#10b981" stroke-width="2" />
+          <text x="200" y="195" text-anchor="middle" fill="#10b981" font-size="12" font-family="JetBrains Mono">
+           Payment
+          </text>
+          <text x="200" y="215" text-anchor="middle" fill="#10b981" font-size="12" font-family="JetBrains Mono">
+           Core
+          </text>
+         </g> <!-- Database --> <g class="node cursor-pointer" data-service="database" onclick="highlightService('database')">
+          <ellipse cx="200" cy="340" rx="50" ry="25" fill="#141414" stroke="#10b981" stroke-width="2" />
+          <text x="200" y="345" text-anchor="middle" fill="#10b981" font-size="12" font-family="JetBrains Mono">
+           PostgreSQL
+          </text>
+         </g> <!-- Queue --> <g class="node cursor-pointer" data-service="queue" onclick="highlightService('queue')">
+          <rect x="20" y="180" width="60" height="40" rx="8" fill="#141414" stroke="#10b981" stroke-width="2" />
+          <text x="50" y="205" text-anchor="middle" fill="#10b981" font-size="10" font-family="JetBrains Mono">
+           Queue
+          </text>
+         </g> <!-- Cache --> <g class="node cursor-pointer" data-service="cache" onclick="highlightService('cache')">
+          <rect x="320" y="180" width="60" height="40" rx="8" fill="#141414" stroke="#10b981" stroke-width="2" />
+          <text x="350" y="205" text-anchor="middle" fill="#10b981" font-size="10" font-family="JetBrains Mono">
+           Redis
+          </text>
+         </g> <!-- Auth Service --> <g class="node cursor-pointer" data-service="auth" onclick="highlightService('auth')">
+          <rect x="30" y="70" width="70" height="40" rx="8" fill="#141414" stroke="#10b981" stroke-width="2" />
+          <text x="65" y="95" text-anchor="middle" fill="#10b981" font-size="10" font-family="JetBrains Mono">
+           Auth
+          </text>
+         </g> <!-- Notification Service --> <g class="node cursor-pointer" data-service="notification" onclick="highlightService('notification')">
+          <rect x="300" y="70" width="70" height="40" rx="8" fill="#141414" stroke="#10b981" stroke-width="2" />
+          <text x="335" y="95" text-anchor="middle" fill="#10b981" font-size="10" font-family="JetBrains Mono">
+           Notify
+          </text>
+         </g>
+        </svg><!-- Service Info Tooltip -->
+        <div id="service-info" class="absolute bottom-0 left-0 right-0 p-4 bg-black/90 border border-emerald-500/30 rounded-lg opacity-0 transition-opacity duration-300">
+         <div class="font-mono-code text-emerald-400 text-sm font-semibold" id="service-name">
+          Hover over a service
+         </div>
+         <div class="text-gray-400 text-xs mt-1" id="service-desc">
+          Click on any node to see details
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Core Expertise - Bento Grid -->
+   <section id="expertise" class="py-20 px-6">
+    <div class="max-w-7xl mx-auto">
+     <div class="text-center mb-16"><span class="text-emerald-400 font-mono-code text-sm">// CORE_EXPERTISE</span>
+      <h2 class="text-3xl md:text-4xl font-bold mt-4">Technical Stack</h2>
+     </div>
+     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-fr"><!-- Large Card - Payment Gateway -->
+      <div class="bento-card rounded-2xl p-6 md:col-span-2 md:row-span-2">
+       <div class="flex items-start justify-between mb-4">
+        <div class="w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center">
+         <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+         </svg>
+        </div><span class="text-emerald-400 font-mono-code text-xs">HIGH SCALE</span>
+       </div>
+       <h3 class="text-xl font-bold mb-3">Payment Gateway Architecture</h3>
+       <p class="text-gray-400 text-sm mb-6">Designed and implemented high-throughput payment systems processing 1M+ daily transactions with 99.99% uptime.</p><!-- Mini Flow Diagram -->
+       <div class="bg-black/50 rounded-xl p-4 scan-effect">
+        <div class="flex items-center justify-between text-xs font-mono-code">
+         <div class="text-center">
+          <div class="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center mb-2 mx-auto"><span class="text-emerald-400">API</span>
+          </div><span class="text-gray-500">Request</span>
+         </div>
+         <div class="flex-1 h-px bg-gradient-to-r from-emerald-500/50 to-emerald-500/50 mx-2 relative">
+          <div class="absolute inset-0 bg-emerald-400" style="width: 30%; animation: pulse 1s ease-in-out infinite;"></div>
+         </div>
+         <div class="text-center">
+          <div class="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center mb-2 mx-auto"><span class="text-emerald-400">⚡</span>
+          </div><span class="text-gray-500">Process</span>
+         </div>
+         <div class="flex-1 h-px bg-gradient-to-r from-emerald-500/50 to-emerald-500/50 mx-2"></div>
+         <div class="text-center">
+          <div class="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center mb-2 mx-auto"><span class="text-emerald-400">✓</span>
+          </div><span class="text-gray-500">Settle</span>
+         </div>
+        </div>
+       </div>
+       <div class="flex flex-wrap gap-2 mt-6"><span class="px-3 py-1 bg-emerald-500/10 rounded-full text-emerald-400 text-xs font-mono-code">Golang</span> <span class="px-3 py-1 bg-emerald-500/10 rounded-full text-emerald-400 text-xs font-mono-code">gRPC</span> <span class="px-3 py-1 bg-emerald-500/10 rounded-full text-emerald-400 text-xs font-mono-code">PostgreSQL</span> <span class="px-3 py-1 bg-emerald-500/10 rounded-full text-emerald-400 text-xs font-mono-code">Redis</span>
+       </div>
+      </div><!-- Golang -->
+      <div class="bento-card rounded-2xl p-6">
+       <div class="w-10 h-10 rounded-xl bg-cyan-500/20 flex items-center justify-center mb-4"><span class="text-cyan-400 font-bold text-lg">Go</span>
+       </div>
+       <h3 class="font-bold mb-2">Golang</h3>
+       <p class="text-gray-400 text-xs">High-performance backend services &amp; concurrent systems</p>
+       <div class="mt-4 h-2 bg-gray-800 rounded-full overflow-hidden">
+        <div class="h-full bg-cyan-400 rounded-full" style="width: 95%;"></div>
+       </div>
+      </div><!-- PHP -->
+      <div class="bento-card rounded-2xl p-6">
+       <div class="w-10 h-10 rounded-xl bg-purple-500/20 flex items-center justify-center mb-4"><span class="text-purple-400 font-bold text-lg">PHP</span>
+       </div>
+       <h3 class="font-bold mb-2">PHP / Laravel</h3>
+       <p class="text-gray-400 text-xs">Enterprise applications with Zend &amp; Laravel frameworks</p>
+       <div class="mt-4 h-2 bg-gray-800 rounded-full overflow-hidden">
+        <div class="h-full bg-purple-400 rounded-full" style="width: 90%;"></div>
+       </div>
+      </div><!-- React/Node -->
+      <div class="bento-card rounded-2xl p-6">
+       <div class="w-10 h-10 rounded-xl bg-yellow-500/20 flex items-center justify-center mb-4"><span class="text-yellow-400 font-bold text-lg">JS</span>
+       </div>
+       <h3 class="font-bold mb-2">Node.js / React</h3>
+       <p class="text-gray-400 text-xs">Full-stack JavaScript for web applications</p>
+       <div class="mt-4 h-2 bg-gray-800 rounded-full overflow-hidden">
+        <div class="h-full bg-yellow-400 rounded-full" style="width: 85%;"></div>
+       </div>
+      </div><!-- Database -->
+      <div class="bento-card rounded-2xl p-6">
+       <div class="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center mb-4"><span class="text-blue-400 font-bold text-lg">DB</span>
+       </div>
+       <h3 class="font-bold mb-2">MySQL / PostgreSQL</h3>
+       <p class="text-gray-400 text-xs">Database optimization &amp; query performance</p>
+       <div class="mt-4 h-2 bg-gray-800 rounded-full overflow-hidden">
+        <div class="h-full bg-blue-400 rounded-full" style="width: 92%;"></div>
+       </div>
+      </div><!-- Reconciliation Engine - Wide Card -->
+      <div class="bento-card rounded-2xl p-6 md:col-span-2">
+       <div class="flex items-start justify-between mb-4">
+        <div>
+         <div class="w-10 h-10 rounded-xl bg-orange-500/20 flex items-center justify-center mb-3">
+          <svg class="w-5 h-5 text-orange-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+          </svg>
+         </div>
+         <h3 class="text-lg font-bold">Reconciliation Engine</h3>
+        </div><span class="text-orange-400 font-mono-code text-xs">FINANCIAL</span>
+       </div><!-- Interactive Recon Demo -->
+       <div id="recon-demo" class="bg-black/50 rounded-xl p-4 font-mono-code text-xs">
+        <div class="flex items-center justify-between mb-3 pb-2 border-b border-gray-800"><span class="text-gray-500">TXN_ID</span> <span class="text-gray-500">AMOUNT</span> <span class="text-gray-500">STATUS</span>
+        </div>
+        <div class="space-y-2" id="recon-rows">
+         <div class="recon-row flex items-center justify-between p-2 rounded matched"><span class="text-emerald-400">TXN001</span> <span class="text-white">$1,250.00</span> <span class="text-emerald-400">● MATCHED</span>
+         </div>
+         <div class="recon-row flex items-center justify-between p-2 rounded processing"><span class="text-yellow-400">TXN002</span> <span class="text-white">$890.50</span> <span class="text-yellow-400">◐ PROCESSING</span>
+         </div>
+         <div class="recon-row flex items-center justify-between p-2 rounded"><span class="text-gray-400">TXN003</span> <span class="text-white">$2,100.00</span> <span class="text-gray-400">○ PENDING</span>
+         </div>
+        </div><button onclick="runReconciliation()" class="mt-4 w-full py-2 bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/50 rounded-lg text-emerald-400 transition-all"> ▶ Run Reconciliation </button>
+       </div>
+      </div><!-- SEO & Performance -->
+      <div class="bento-card rounded-2xl p-6 md:col-span-2">
+       <div class="flex items-start justify-between mb-4">
+        <div>
+         <div class="w-10 h-10 rounded-xl bg-pink-500/20 flex items-center justify-center mb-3">
+          <svg class="w-5 h-5 text-pink-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+         </div>
+         <h3 class="text-lg font-bold">Web Performance &amp; SEO</h3>
+        </div><span class="text-pink-400 font-mono-code text-xs">OPTIMIZATION</span>
+       </div>
+       <p class="text-gray-400 text-sm mb-4">Core Web Vitals optimization achieving 90+ Lighthouse scores</p>
+       <div class="grid grid-cols-4 gap-4">
+        <div class="text-center">
+         <div class="text-2xl font-bold text-emerald-400">
+          98
+         </div>
+         <div class="text-xs text-gray-500">
+          Performance
+         </div>
+        </div>
+        <div class="text-center">
+         <div class="text-2xl font-bold text-emerald-400">
+          100
+         </div>
+         <div class="text-xs text-gray-500">
+          Accessibility
+         </div>
+        </div>
+        <div class="text-center">
+         <div class="text-2xl font-bold text-emerald-400">
+          100
+         </div>
+         <div class="text-xs text-gray-500">
+          Best Practices
+         </div>
+        </div>
+        <div class="text-center">
+         <div class="text-2xl font-bold text-emerald-400">
+          95
+         </div>
+         <div class="text-xs text-gray-500">
+          SEO
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Experience Timeline -->
+   <section id="experience" class="py-20 px-6 bg-gradient-to-b from-transparent via-emerald-950/10 to-transparent">
+    <div class="max-w-4xl mx-auto">
+     <div class="text-center mb-16"><span class="text-emerald-400 font-mono-code text-sm">// EXPERIENCE_LOG</span>
+      <h2 class="text-3xl md:text-4xl font-bold mt-4">Career Timeline</h2>
+     </div>
+     <div class="relative"><!-- Timeline Line -->
+      <div class="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-emerald-500 via-emerald-500/50 to-transparent"></div><!-- Timeline Items -->
+      <div class="space-y-12">
+       <div class="relative flex items-center md:justify-center">
+        <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-emerald-500 transform -translate-x-1/2 animate-pulse"></div>
+        <div class="ml-16 md:ml-0 md:w-5/12 md:mr-auto md:pr-8">
+         <div class="glass-card rounded-xl p-6">
+          <div class="flex items-center gap-2 mb-2"><span class="text-emerald-400 font-mono-code text-sm">2022 - Present</span>
+          </div>
+          <h3 class="text-lg font-bold mb-2">Senior Backend Engineer</h3>
+          <p class="text-gray-400 text-sm mb-4">Led payment gateway architecture serving 1M+ daily transactions. Reduced latency by 40% through microservices optimization.</p>
+          <div class="flex items-center gap-4 text-xs text-gray-500"><span>📊 1M+ TXN/day</span> <span>⚡ 40% faster</span>
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="relative flex items-center md:justify-center">
+        <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-emerald-500/70 transform -translate-x-1/2"></div>
+        <div class="ml-16 md:ml-0 md:w-5/12 md:ml-auto md:pl-8">
+         <div class="glass-card rounded-xl p-6">
+          <div class="flex items-center gap-2 mb-2"><span class="text-emerald-400 font-mono-code text-sm">2021 - 2022</span>
+          </div>
+          <h3 class="text-lg font-bold mb-2">Backend Developer</h3>
+          <p class="text-gray-400 text-sm mb-4">Built reconciliation engines and invoicing systems. Automated 80% of manual financial processes.</p>
+          <div class="flex items-center gap-4 text-xs text-gray-500"><span>🔄 80% automation</span> <span>💰 $2M saved</span>
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="relative flex items-center md:justify-center">
+        <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-emerald-500/50 transform -translate-x-1/2"></div>
+        <div class="ml-16 md:ml-0 md:w-5/12 md:mr-auto md:pr-8">
+         <div class="glass-card rounded-xl p-6">
+          <div class="flex items-center gap-2 mb-2"><span class="text-emerald-400 font-mono-code text-sm">2019 - 2021</span>
+          </div>
+          <h3 class="text-lg font-bold mb-2">Full Stack Developer</h3>
+          <p class="text-gray-400 text-sm mb-4">Developed web applications with PHP/Laravel and React. Improved site performance achieving 95+ Lighthouse scores.</p>
+          <div class="flex items-center gap-4 text-xs text-gray-500"><span>🚀 95+ Lighthouse</span> <span>📈 3x traffic</span>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Project Architecture -->
+   <section id="projects" class="py-20 px-6">
+    <div class="max-w-7xl mx-auto">
+     <div class="text-center mb-16"><span class="text-emerald-400 font-mono-code text-sm">// PROJECT_ARCHITECTURE</span>
+      <h2 class="text-3xl md:text-4xl font-bold mt-4">System Designs</h2>
+     </div>
+     <div class="grid md:grid-cols-2 gap-8"><!-- Payment Gateway Architecture -->
+      <div class="bento-card rounded-2xl p-6">
+       <h3 class="text-xl font-bold mb-4 flex items-center gap-3"><span class="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-400">💳</span> Payment Gateway</h3>
+       <div class="bg-black/50 rounded-xl p-4 mb-4">
+        <svg viewbox="0 0 300 200" class="w-full"><!-- Architecture Diagram --> <rect x="110" y="10" width="80" height="30" rx="4" fill="#141414" stroke="#10b981" stroke-width="1.5" /> <text x="150" y="30" text-anchor="middle" fill="#10b981" font-size="10">
+          Load Balancer
+         </text> <line x1="150" y1="40" x2="150" y2="60" stroke="#10b981" stroke-width="1" /> <rect x="50" y="60" width="70" height="30" rx="4" fill="#141414" stroke="#10b981" stroke-width="1.5" /> <text x="85" y="80" text-anchor="middle" fill="#10b981" font-size="9">
+          API Gateway
+         </text> <rect x="180" y="60" width="70" height="30" rx="4" fill="#141414" stroke="#10b981" stroke-width="1.5" /> <text x="215" y="80" text-anchor="middle" fill="#10b981" font-size="9">
+          Auth Service
+         </text> <line x1="85" y1="90" x2="85" y2="110" stroke="#10b981" stroke-width="1" /> <line x1="215" y1="90" x2="215" y2="110" stroke="#10b981" stroke-width="1" /> <rect x="20" y="110" width="60" height="25" rx="4" fill="#141414" stroke="#34d399" stroke-width="1.5" /> <text x="50" y="127" text-anchor="middle" fill="#34d399" font-size="8">
+          Payment
+         </text> <rect x="90" y="110" width="60" height="25" rx="4" fill="#141414" stroke="#34d399" stroke-width="1.5" /> <text x="120" y="127" text-anchor="middle" fill="#34d399" font-size="8">
+          Settlement
+         </text> <rect x="160" y="110" width="60" height="25" rx="4" fill="#141414" stroke="#34d399" stroke-width="1.5" /> <text x="190" y="127" text-anchor="middle" fill="#34d399" font-size="8">
+          Notification
+         </text> <rect x="230" y="110" width="60" height="25" rx="4" fill="#141414" stroke="#34d399" stroke-width="1.5" /> <text x="260" y="127" text-anchor="middle" fill="#34d399" font-size="8">
+          Audit
+         </text> <line x1="50" y1="135" x2="50" y2="160" stroke="#10b981" stroke-width="1" /> <line x1="120" y1="135" x2="120" y2="160" stroke="#10b981" stroke-width="1" /> <line x1="190" y1="135" x2="190" y2="160" stroke="#10b981" stroke-width="1" /> <line x1="260" y1="135" x2="260" y2="160" stroke="#10b981" stroke-width="1" /> <ellipse cx="85" cy="175" rx="70" ry="15" fill="#141414" stroke="#6ee7b7" stroke-width="1.5" /> <text x="85" y="180" text-anchor="middle" fill="#6ee7b7" font-size="9">
+          PostgreSQL Cluster
+         </text> <ellipse cx="225" cy="175" rx="50" ry="15" fill="#141414" stroke="#6ee7b7" stroke-width="1.5" /> <text x="225" y="180" text-anchor="middle" fill="#6ee7b7" font-size="9">
+          Redis Cache
+         </text>
+        </svg>
+       </div>
+       <div class="flex flex-wrap gap-2"><span class="px-2 py-1 bg-emerald-500/10 rounded text-emerald-400 text-xs">Go</span> <span class="px-2 py-1 bg-emerald-500/10 rounded text-emerald-400 text-xs">gRPC</span> <span class="px-2 py-1 bg-emerald-500/10 rounded text-emerald-400 text-xs">Kubernetes</span> <span class="px-2 py-1 bg-emerald-500/10 rounded text-emerald-400 text-xs">PostgreSQL</span>
+       </div>
+      </div><!-- Reconciliation Engine -->
+      <div class="bento-card rounded-2xl p-6">
+       <h3 class="text-xl font-bold mb-4 flex items-center gap-3"><span class="w-8 h-8 rounded-lg bg-orange-500/20 flex items-center justify-center text-orange-400">🔄</span> Reconciliation Engine</h3>
+       <div class="bg-black/50 rounded-xl p-4 mb-4">
+        <svg viewbox="0 0 300 200" class="w-full"><!-- Data Flow Diagram --> <rect x="10" y="80" width="60" height="40" rx="4" fill="#141414" stroke="#f97316" stroke-width="1.5" /> <text x="40" y="95" text-anchor="middle" fill="#f97316" font-size="8">
+          Bank
+         </text> <text x="40" y="108" text-anchor="middle" fill="#f97316" font-size="8">
+          Statement
+         </text> <rect x="230" y="80" width="60" height="40" rx="4" fill="#141414" stroke="#f97316" stroke-width="1.5" /> <text x="260" y="95" text-anchor="middle" fill="#f97316" font-size="8">
+          Internal
+         </text> <text x="260" y="108" text-anchor="middle" fill="#f97316" font-size="8">
+          Ledger
+         </text> <line x1="70" y1="100" x2="110" y2="100" stroke="#f97316" stroke-width="1.5" /> <line x1="190" y1="100" x2="230" y2="100" stroke="#f97316" stroke-width="1.5" /> <rect x="110" y="70" width="80" height="60" rx="8" fill="#141414" stroke="#10b981" stroke-width="2" /> <text x="150" y="95" text-anchor="middle" fill="#10b981" font-size="10">
+          Matching
+         </text> <text x="150" y="110" text-anchor="middle" fill="#10b981" font-size="10">
+          Engine
+         </text> <line x1="150" y1="130" x2="150" y2="160" stroke="#10b981" stroke-width="1.5" /> <rect x="90" y="160" width="50" height="25" rx="4" fill="#141414" stroke="#22c55e" stroke-width="1.5" /> <text x="115" y="177" text-anchor="middle" fill="#22c55e" font-size="8">
+          Matched
+         </text> <rect x="160" y="160" width="50" height="25" rx="4" fill="#141414" stroke="#eab308" stroke-width="1.5" /> <text x="185" y="177" text-anchor="middle" fill="#eab308" font-size="8">
+          Review
+         </text>
+        </svg>
+       </div>
+       <div class="flex flex-wrap gap-2"><span class="px-2 py-1 bg-orange-500/10 rounded text-orange-400 text-xs">Go</span> <span class="px-2 py-1 bg-orange-500/10 rounded text-orange-400 text-xs">RabbitMQ</span> <span class="px-2 py-1 bg-orange-500/10 rounded text-orange-400 text-xs">ElasticSearch</span>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Lighthouse Metrics -->
+   <section id="metrics" class="py-20 px-6 bg-gradient-to-b from-transparent via-emerald-950/10 to-transparent">
+    <div class="max-w-4xl mx-auto">
+     <div class="text-center mb-16"><span class="text-emerald-400 font-mono-code text-sm">// PERFORMANCE_METRICS</span>
+      <h2 class="text-3xl md:text-4xl font-bold mt-4">Lighthouse Scores</h2>
+      <p class="text-gray-400 mt-4">This portfolio's actual performance metrics</p>
+     </div>
+     <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div class="text-center">
+       <div class="relative w-24 h-24 mx-auto mb-4">
+        <svg class="w-full h-full transform -rotate-90" viewbox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="#1f2937" stroke-width="8" /> <circle cx="50" cy="50" r="45" fill="none" stroke="#10b981" stroke-width="8" class="metric-ring" id="perf-ring" stroke-linecap="round" />
+        </svg>
+        <div class="absolute inset-0 flex items-center justify-center"><span class="text-2xl font-bold text-emerald-400" id="perf-score">0</span>
+        </div>
+       </div>
+       <div class="font-semibold">
+        Performance
+       </div>
+       <div class="text-xs text-gray-500">
+        Fast &amp; Optimized
+       </div>
+      </div>
+      <div class="text-center">
+       <div class="relative w-24 h-24 mx-auto mb-4">
+        <svg class="w-full h-full transform -rotate-90" viewbox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="#1f2937" stroke-width="8" /> <circle cx="50" cy="50" r="45" fill="none" stroke="#10b981" stroke-width="8" class="metric-ring" id="a11y-ring" stroke-linecap="round" />
+        </svg>
+        <div class="absolute inset-0 flex items-center justify-center"><span class="text-2xl font-bold text-emerald-400" id="a11y-score">0</span>
+        </div>
+       </div>
+       <div class="font-semibold">
+        Accessibility
+       </div>
+       <div class="text-xs text-gray-500">
+        WCAG Compliant
+       </div>
+      </div>
+      <div class="text-center">
+       <div class="relative w-24 h-24 mx-auto mb-4">
+        <svg class="w-full h-full transform -rotate-90" viewbox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="#1f2937" stroke-width="8" /> <circle cx="50" cy="50" r="45" fill="none" stroke="#10b981" stroke-width="8" class="metric-ring" id="bp-ring" stroke-linecap="round" />
+        </svg>
+        <div class="absolute inset-0 flex items-center justify-center"><span class="text-2xl font-bold text-emerald-400" id="bp-score">0</span>
+        </div>
+       </div>
+       <div class="font-semibold">
+        Best Practices
+       </div>
+       <div class="text-xs text-gray-500">
+        Security Focused
+       </div>
+      </div>
+      <div class="text-center">
+       <div class="relative w-24 h-24 mx-auto mb-4">
+        <svg class="w-full h-full transform -rotate-90" viewbox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="#1f2937" stroke-width="8" /> <circle cx="50" cy="50" r="45" fill="none" stroke="#10b981" stroke-width="8" class="metric-ring" id="seo-ring" stroke-linecap="round" />
+        </svg>
+        <div class="absolute inset-0 flex items-center justify-center"><span class="text-2xl font-bold text-emerald-400" id="seo-score">0</span>
+        </div>
+       </div>
+       <div class="font-semibold">
+        SEO
+       </div>
+       <div class="text-xs text-gray-500">
+        Search Optimized
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Contact Section -->
+   <section id="contact" class="py-20 px-6">
+    <div class="max-w-2xl mx-auto text-center"><span class="text-emerald-400 font-mono-code text-sm">// INIT_CONNECTION</span>
+     <h2 class="text-3xl md:text-4xl font-bold mt-4 mb-6">Let's Build Something Great</h2>
+     <p id="about-text" class="text-gray-400 mb-8">Looking for a backend engineer who can architect scalable payment systems and optimize financial processes? Let's discuss how I can help.</p>
+     <div class="glass-card rounded-2xl p-8">
+      <div class="flex flex-col md:flex-row gap-4 justify-center"><a id="contact-email-link" href="mailto:rendywijaya374@gmail.com" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-emerald-500 hover:bg-emerald-400 text-black font-semibold rounded-lg transition-all">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg><span id="contact-email-text">rendywijaya374@gmail.com</span> </a> <a href="https://github.com/1517051082" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 px-6 py-3 border border-gray-700 hover:border-emerald-500/50 rounded-lg transition-all hover:bg-emerald-500/5">
+        <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+        </svg> GitHub </a> <a href="https://www.linkedin.com/in/rendy-wijaya-644b7019a" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 px-6 py-3 border border-gray-700 hover:border-emerald-500/50 rounded-lg transition-all hover:bg-emerald-500/5">
+        <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+        </svg> LinkedIn </a>
+      </div>
+     </div><!-- Tech Stack Footer -->
+     <div class="mt-16 pt-8 border-t border-gray-800">
+      <p class="text-gray-500 text-sm font-mono-code mb-4">// BUILT_WITH</p>
+      <div class="flex flex-wrap justify-center gap-4 text-gray-600 text-sm"><span>Golang</span> <span>•</span> <span>PHP/Laravel</span> <span>•</span> <span>Node.js</span> <span>•</span> <span>React</span> <span>•</span> <span>PostgreSQL</span> <span>•</span> <span>Redis</span>
+      </div>
+     </div>
+    </div>
+   </section>
   </div>
-
-  <!-- navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="#">Rendy Wijaya</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav ms-auto">
-          <a class="nav-link active" aria-current="page" href="#home" onclick="active(this)">Home</a>
-          <a class="nav-link" href="#about" onclick="active(this)">About</a>
-          <a class="nav-link" href="#services" onclick="active(this)">Services</a>
-          <a class="nav-link" href="#projects" onclick="active(this)">Projects</a>
-          <a class="nav-link" href="#contact" onclick="active(this)">Contact</a>
-        </div>
-      </div>
-    </div>
-  </nav>
-  <!-- end navbar -->
-
-  <!-- jumbotron -->
-  <section id="home" class="jumbotron text-center text-white">
-    <img src="assets/img/profiles.jpg" class="rounded-circle img-thumbnail" alt="Rendy" width="150" />
-    <h1 class="display-4"><i>“Hi, I’m Rendy Wijaya a Web Programmer”</i></h1>
-    <p class="lead fw-bold fs-2">“I build scalable business systems with Laravel & React.”</p>
-    <p class="caption"><span id="greetings"></span>, how are you today?</p>
-    <div>
-      <a class="text-white ms-3 fs-3" href="https://www.linkedin.com/in/rendy-wijaya-644b7019a/" target="_blank"><i
-          class="bi bi-linkedin"></i></a>
-      <a class="text-white ms-3 fs-3" href="mailto:rendywijaya374@gmail.com" target="_blank"><i
-          class="bi bi-envelope"></i></a>
-      <a class="text-white ms-3 fs-3" href="https://www.instagram.com/rendy_wijaya18/" target="_blank"><i
-          class="bi bi-instagram"></i></a>
-      <a class="text-white ms-3 fs-3" href="https://www.facebook.com/rendy.wijayaNjs3578369/" target="_blank"><i
-          class="bi bi-facebook"></i></a>
-    </div>
-  </section>
-  <!-- end jumbotron -->
-
-  <!-- about -->
-  <section id="about" data-aos="fade-up" data-aos-duration="2000">
-    <div class="container">
-      <div class="row text-center mb-3">
-        <div class="col">
-          <h2>About Me</h2>
-        </div>
-      </div>
-      <div class="row justify-content-center fs-5 text-center">
-        <div class="col-md-12">
-          <p>
-            I’m a web developer with 5+ years of experience in building business systems like payment gateways,
-            invoicing tools, and company websites. My core stack is Laravel, Livewire, Zend, MySQL, and React.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- end about -->
-
-  <!-- services -->
-  <section id="services" class="text-white" data-aos="fade-up" data-aos-duration="2000">
-    <div class="container">
-      <div class="row text-center mb-3">
-        <div class="col">
-          <h2>Services</h2>
-        </div>
-      </div>
-      <div class="row justify-content-center fs-5 text-start">
-        <div class="col-md-12">
-          ✅ Custom Web Development (Laravel, Livewire, Zend)<br />
-          ✅ API Integration (Payment, Shipping, etc.)<br />
-          ✅ Admin Dashboard & Reporting<br />
-          ✅ Website Optimization & Maintenance<br />
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- end services -->
-
-  <!-- projects -->
-  <section id="projects" data-aos="fade-up" data-aos-duration="2000">
-    <div class="container">
-      <div class="row text-center mb-3">
-        <div class="col">
-          <h2>My Projects</h2>
-        </div>
-      </div>
-      <div class="row text-center justify-content-center">
-        <div class="col-md-4 mb-3">
-          <div class="card">
-            <!-- Button trigger modal -->
-            <img src="assets/projects/siput/home.png" class="card-img-top" alt="SIPUT" data-bs-toggle="modal"
-              data-bs-target="#imageModal" data-bs-url="assets/projects/siput/home.png"
-              data-bs-title="Sistem Informasi Penilaian Kesehatan Hutan" />
-            <div class="card-body">
-              <p class="card-title">SIPUT</p>
-              <p class="card-text">This is a program to compute forest health value manually based on Forest Health
-                Monitoring (FHM) method.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 mb-3">
-          <div class="card">
-            <img src="assets/projects/sipelanal/home.png" class="card-img-top" alt="SIPELANAL" data-bs-toggle="modal"
-              data-bs-target="#imageModal" data-bs-url="assets/projects/sipelanal/home.png" data-bs-title="SIPELANAL" />
-            <div class="card-body">
-              <p class="card-title">SIPELANAL</p>
-              <p class="card-text">This is a program to evaluate the drugs and foods tests, then the admin can print out
-                the results in the paper.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 mb-3">
-          <div class="card">
-            <img src="assets/projects/sipsom/riwayat.png" class="card-img-top" alt="SIPSOM" data-bs-toggle="modal"
-              data-bs-target="#imageModal" data-bs-url="assets/projects/sipsom/riwayat.png"
-              data-bs-title="Sistem Informasi Pemantauan Sarana Obat dan Makanan" />
-            <div class="card-body">
-              <p class="card-title">SIPSOM</p>
-              <p class="card-text">This is a program to investigate foods and drugs in Bandar Lampung. This system can
-                mark the visited location by employees.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- end projects -->
-
-  <!-- contact -->
-  <section id="contact" class="text-white" data-aos="fade-up" data-aos-duration="2000">
-    <div class="container">
-      <div class="row text-center mb-3">
-        <div class="col">
-          <h2>Contact Me</h2>
-        </div>
-      </div>
-      <div class="row justify-content-center">
-        <div class="col-md-8">
-          <form>
-            <div class="mb-3">
-              <label for="name" class="form-label">Full Name</label>
-              <input type="text" class="form-control" id="name" aria-describedby="name" />
-            </div>
-            <div class="mb-3">
-              <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email" aria-describedby="email" />
-            </div>
-            <div class="mb-3">
-              <label for="message" class="form-label">Message</label>
-              <textarea class="form-control" id="message" rows="3"></textarea>
-            </div>
-            <button type="button" class="btn btn-primary" onclick="sendMail()">Send</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-  <br />
-  <!-- end contact -->
-
-  <!-- footer  -->
-  <footer class="text-center bg-primary text-white pb-3 pt-3">
-    <p>
-      Copyright ©2025 All rights reserved | Created with <i class="bi bi-heart-fill text-danger"></i> by
-      <a class="text-white" href="https://www.linkedin.com/in/rendy-wijaya-644b7019a/" target="_blank"
-        style="text-decoration: none">Rendy Wijaya</a>
-    </p>
-  </footer>
-  <!-- end footer -->
-
-  <!-- Modal -->
-  <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-fullscreen">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="imageModalLabel">Modal title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body text-center">
-          <img src="" alt="..." width="100%" />
-        </div>
-      </div>
-    </div>
-  </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
-    crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="assets/vendor/sweetalert/dist/sweetalert.min.js"></script>
   <script>
-    AOS.init();
-    function active(e) {
-      var a = document.querySelectorAll(".nav-link");
-      for (var i = 0; i < a.length; i++) {
-        a[i].classList.remove("active");
+    // Default configuration
+    const defaultConfig = {
+      hero_title: 'Building <span class="gradient-text">Scalable</span> Systems with <span class="gradient-text">Financial Precision</span>',
+      hero_subtitle: 'Senior Backend Engineer specializing in high-scale payment gateways, microservices architecture, and systems that process millions of transactions daily.',
+      about_text: 'Looking for a backend engineer who can architect scalable payment systems and optimize financial processes? Let\'s discuss how I can help.',
+      contact_email: 'rendywijaya374@gmail.com',
+      background_color: '#0a0a0a',
+      surface_color: '#141414',
+      text_color: '#f3f4f6',
+      primary_action_color: '#10b981',
+      secondary_action_color: '#6ee7b7',
+      font_family: 'Inter',
+      font_size: 16
+    };
+
+    let config = { ...defaultConfig };
+
+    // Service descriptions for microservices diagram
+    const serviceDescriptions = {
+      'api-gateway': { name: 'API Gateway', desc: 'Routes requests, handles rate limiting, and manages API versioning' },
+      'payment-core': { name: 'Payment Core', desc: 'Central transaction processing with ACID compliance and fraud detection' },
+      'database': { name: 'PostgreSQL', desc: 'Primary data store with replication and point-in-time recovery' },
+      'queue': { name: 'Message Queue', desc: 'RabbitMQ for async processing and event-driven architecture' },
+      'cache': { name: 'Redis Cache', desc: 'In-memory caching for session data and high-frequency queries' },
+      'auth': { name: 'Auth Service', desc: 'JWT-based authentication with OAuth2 integration' },
+      'notification': { name: 'Notification', desc: 'Multi-channel notifications via email, SMS, and webhooks' }
+    };
+
+    // Highlight service on click
+    function highlightService(serviceId) {
+      const nodes = document.querySelectorAll('.node');
+      nodes.forEach(node => node.classList.remove('node-active'));
+      
+      const selectedNode = document.querySelector(`[data-service="${serviceId}"]`);
+      if (selectedNode) {
+        selectedNode.classList.add('node-active');
       }
-      e.classList.add("active");
+      
+      const serviceInfo = document.getElementById('service-info');
+      const serviceName = document.getElementById('service-name');
+      const serviceDesc = document.getElementById('service-desc');
+      
+      if (serviceDescriptions[serviceId]) {
+        serviceName.textContent = serviceDescriptions[serviceId].name;
+        serviceDesc.textContent = serviceDescriptions[serviceId].desc;
+        serviceInfo.style.opacity = '1';
+      }
     }
 
-    var imageModal = document.getElementById("imageModal");
-    imageModal.addEventListener("show.bs.modal", function (event) {
-      // Button that triggered the modal
-      var button = event.relatedTarget;
-      // Extract info from data-bs-* attributes
-      var url = button.getAttribute("data-bs-url");
-      var title = button.getAttribute("data-bs-title");
-      // If necessary, you could initiate an AJAX request here
-      // and then do the updating in a callback.
-      //
-      // Update the modal's content.
-      var modalTitle = imageModal.querySelector(".modal-title");
-      var modalBodyInput = imageModal.querySelector(".modal-body img");
-
-      modalTitle.textContent = title;
-      modalBodyInput.src = url;
-      modalBodyInput.alt = title;
-    });
-
-    const sections = document.querySelectorAll("section[id]");
-    const body = document.querySelector("body");
-
-    // Add an event listener listening for scroll
-    window.addEventListener("scroll", navHighlighter);
-
-    function navHighlighter() {
-      let scrollY = window.pageYOffset;
-
-      sections.forEach((current) => {
-        const sectionHeight = current.offsetHeight;
-        const sectionTop = current.offsetTop - 50;
-        sectionId = current.getAttribute("id");
-
-        if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-          document.querySelector(".nav-link[href*=" + sectionId + "]").classList.add("active");
-        } else {
-          document.querySelector(".nav-link[href*=" + sectionId + "]").classList.remove("active");
+    // Reconciliation demo
+    let reconRunning = false;
+    function runReconciliation() {
+      if (reconRunning) return;
+      reconRunning = true;
+      
+      const rows = document.querySelectorAll('.recon-row');
+      let index = 0;
+      
+      function processRow() {
+        if (index >= rows.length) {
+          reconRunning = false;
+          return;
         }
+        
+        const row = rows[index];
+        row.classList.remove('matched');
+        row.classList.add('processing');
+        
+        const statusSpan = row.querySelector('span:last-child');
+        statusSpan.textContent = '◐ PROCESSING';
+        statusSpan.className = 'text-yellow-400';
+        
+        setTimeout(() => {
+          row.classList.remove('processing');
+          row.classList.add('matched');
+          statusSpan.textContent = '● MATCHED';
+          statusSpan.className = 'text-emerald-400';
+          
+          const idSpan = row.querySelector('span:first-child');
+          idSpan.className = 'text-emerald-400';
+          
+          index++;
+          setTimeout(processRow, 500);
+        }, 800);
+      }
+      
+      rows.forEach(row => {
+        row.classList.remove('matched', 'processing');
+        const statusSpan = row.querySelector('span:last-child');
+        statusSpan.textContent = '○ PENDING';
+        statusSpan.className = 'text-gray-400';
+        const idSpan = row.querySelector('span:first-child');
+        idSpan.className = 'text-gray-400';
+      });
+      
+      setTimeout(processRow, 300);
+    }
+
+    // Animate Lighthouse scores
+    function animateScores() {
+      const scores = [
+        { id: 'perf', ring: 'perf-ring', score: 'perf-score', value: 98 },
+        { id: 'a11y', ring: 'a11y-ring', score: 'a11y-score', value: 100 },
+        { id: 'bp', ring: 'bp-ring', score: 'bp-score', value: 100 },
+        { id: 'seo', ring: 'seo-ring', score: 'seo-score', value: 95 }
+      ];
+      
+      scores.forEach((item, index) => {
+        setTimeout(() => {
+          const ring = document.getElementById(item.ring);
+          const scoreEl = document.getElementById(item.score);
+          
+          const circumference = 283;
+          const offset = circumference - (item.value / 100) * circumference;
+          ring.style.strokeDashoffset = offset;
+          
+          let current = 0;
+          const increment = item.value / 30;
+          const timer = setInterval(() => {
+            current += increment;
+            if (current >= item.value) {
+              current = item.value;
+              clearInterval(timer);
+            }
+            scoreEl.textContent = Math.round(current);
+          }, 30);
+        }, index * 200);
       });
     }
-    let date = new Date();
-    let time = date.getHours();
-    let greet;
-    if (time > 4) {
-      greet = "Good Morning";
-    }
-    if (time > 10) {
-      greet = "Good Afternoon";
-    }
-    if (time > 15) {
-      greet = "Good Evening";
-    }
-    if (time > 18) {
-      greet = "Good Night";
-    }
-    document.querySelector("#greetings").textContent = greet;
 
-    function sendMail() {
-      const loader = document.getElementById("overlay");
-      loader.style.display = "block";
-      const formData = new FormData();
-      const name = document.querySelector("#name").value;
-      const email = document.querySelector("#email").value;
-      const message = document.querySelector("#message").value;
+    // Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.3
+    };
 
-      formData.append("name", name);
-      formData.append("email", email);
-      formData.append("subject", "Contact");
-      formData.append("message", message);
+    const metricsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateScores();
+          metricsObserver.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
 
-      fetch("https://indococo.herokuapp.com/send_mail.php", {
-        method: "POST",
-        body: formData,
-      })
-        .then((response) => response.json())
-        .then((result) => {
-          if (result.data[0].message_code == 200) {
-            document.getElementById("name").value = "";
-            document.getElementById("email").value = "";
-            document.getElementById("message").value = "";
-            swal({
-              title: "Success",
-              text: result.data[0].message,
-              icon: "success",
-            });
-          } else {
-            swal({
-              title: "Error",
-              text: result.data[0].message,
-              icon: "error",
-            });
-          }
-          loader.style.display = "none";
-        })
-        .catch((error) => {
-          swal({
-            title: "Error",
-            text: "Internal Server Error",
-            icon: "error",
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', () => {
+      const metricsSection = document.getElementById('metrics');
+      if (metricsSection) {
+        metricsObserver.observe(metricsSection);
+      }
+    });
+
+    // Smooth scroll for navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
           });
-          loader.style.display = "none";
-        });
+        }
+      });
+    });
+
+    // Apply config to UI
+    async function onConfigChange(newConfig) {
+      const customFont = newConfig.font_family || defaultConfig.font_family;
+      const baseSize = newConfig.font_size || defaultConfig.font_size;
+      
+      // Update hero section
+      const heroTitle = document.getElementById('hero-title');
+      if (heroTitle) {
+        heroTitle.innerHTML = newConfig.hero_title || defaultConfig.hero_title;
+        heroTitle.style.fontFamily = `${customFont}, Inter, sans-serif`;
+        heroTitle.style.fontSize = `${baseSize * 2.5}px`;
+      }
+      
+      const heroSubtitle = document.getElementById('hero-subtitle');
+      if (heroSubtitle) {
+        heroSubtitle.textContent = newConfig.hero_subtitle || defaultConfig.hero_subtitle;
+        heroSubtitle.style.fontFamily = `${customFont}, Inter, sans-serif`;
+        heroSubtitle.style.fontSize = `${baseSize * 1.25}px`;
+      }
+      
+      // Update about text
+      const aboutText = document.getElementById('about-text');
+      if (aboutText) {
+        aboutText.textContent = newConfig.about_text || defaultConfig.about_text;
+        aboutText.style.fontFamily = `${customFont}, Inter, sans-serif`;
+      }
+      
+      // Update contact email
+      const contactEmail = newConfig.contact_email || defaultConfig.contact_email;
+      const contactEmailLink = document.getElementById('contact-email-link');
+      const contactEmailText = document.getElementById('contact-email-text');
+      if (contactEmailLink) contactEmailLink.href = `mailto:${contactEmail}`;
+      if (contactEmailText) contactEmailText.textContent = contactEmail;
+      
+      // Apply colors
+      document.body.style.backgroundColor = newConfig.background_color || defaultConfig.background_color;
+      
+      // Update all bento cards
+      document.querySelectorAll('.bento-card').forEach(card => {
+        card.style.background = `linear-gradient(135deg, ${newConfig.surface_color || defaultConfig.surface_color}e6 0%, ${newConfig.background_color || defaultConfig.background_color}f2 100%)`;
+        card.style.borderColor = `${newConfig.primary_action_color || defaultConfig.primary_action_color}33`;
+      });
+      
+      // Update glass cards
+      document.querySelectorAll('.glass-card').forEach(card => {
+        card.style.background = `${newConfig.background_color || defaultConfig.background_color}cc`;
+      });
+      
+      // Update primary action buttons
+      document.querySelectorAll('a.bg-emerald-500, button.bg-emerald-500').forEach(btn => {
+        btn.style.backgroundColor = newConfig.primary_action_color || defaultConfig.primary_action_color;
+      });
+    }
+
+    // Map to capabilities
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          {
+            get: () => config.background_color || defaultConfig.background_color,
+            set: (value) => {
+              config.background_color = value;
+              window.elementSdk.setConfig({ background_color: value });
+            }
+          },
+          {
+            get: () => config.surface_color || defaultConfig.surface_color,
+            set: (value) => {
+              config.surface_color = value;
+              window.elementSdk.setConfig({ surface_color: value });
+            }
+          },
+          {
+            get: () => config.text_color || defaultConfig.text_color,
+            set: (value) => {
+              config.text_color = value;
+              window.elementSdk.setConfig({ text_color: value });
+            }
+          },
+          {
+            get: () => config.primary_action_color || defaultConfig.primary_action_color,
+            set: (value) => {
+              config.primary_action_color = value;
+              window.elementSdk.setConfig({ primary_action_color: value });
+            }
+          },
+          {
+            get: () => config.secondary_action_color || defaultConfig.secondary_action_color,
+            set: (value) => {
+              config.secondary_action_color = value;
+              window.elementSdk.setConfig({ secondary_action_color: value });
+            }
+          }
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => config.font_family || defaultConfig.font_family,
+          set: (value) => {
+            config.font_family = value;
+            window.elementSdk.setConfig({ font_family: value });
+          }
+        },
+        fontSizeable: {
+          get: () => config.font_size || defaultConfig.font_size,
+          set: (value) => {
+            config.font_size = value;
+            window.elementSdk.setConfig({ font_size: value });
+          }
+        }
+      };
+    }
+
+    // Map to edit panel values
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ['hero_title', config.hero_title || defaultConfig.hero_title],
+        ['hero_subtitle', config.hero_subtitle || defaultConfig.hero_subtitle],
+        ['about_text', config.about_text || defaultConfig.about_text],
+        ['contact_email', config.contact_email || defaultConfig.contact_email]
+      ]);
+    }
+
+    // Initialize Element SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    } else {
+      onConfigChange(defaultConfig);
     }
   </script>
-</body>
-
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c68b6462451a132',t:'MTc2OTg1NzI5Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
